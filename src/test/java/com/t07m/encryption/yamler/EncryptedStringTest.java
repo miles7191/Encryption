@@ -25,6 +25,7 @@ import org.junit.jupiter.api.Test;
 import com.t07m.encryption.Encryption;
 
 import net.cubespace.Yamler.Config.InvalidConfigurationException;
+import net.cubespace.Yamler.Config.InvalidConverterException;
 import net.cubespace.Yamler.Config.YamlConfig;
 
 public class EncryptedStringTest {
@@ -34,11 +35,12 @@ public class EncryptedStringTest {
 		Config config = null;
 		try {
 			config = new Config();
+			config.addConverter(EncryptedStringConverter.class);
 			config.init();
 			System.out.println(config.encryption.getEncrypted());
 			System.out.println(config.encryption.getDecrypted());
 			assert(Encryption.isEncrypted(config.encryption.getEncrypted().getBytes()));
-		} catch(InvalidConfigurationException ex) {}
+		} catch(InvalidConfigurationException | InvalidConverterException ex) {}
 		try {
 			Files.deleteIfExists(Paths.get("config.yml"));
 		} catch (IOException e) {}
