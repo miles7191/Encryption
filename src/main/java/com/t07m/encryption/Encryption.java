@@ -33,6 +33,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class Encryption {
 	
+	
 	public static SecretKeySpec createSecretKey(String password, String salt) {
 		try {
 			return createSecretKey(password.toCharArray(), salt.getBytes(), 40000, 128);
